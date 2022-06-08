@@ -14,7 +14,6 @@ int main(){
     double userIn = 0;
     string letter;
     char belowAve;
-    int count = 0;
     double sum = 0;
     
     cout << "Enter grades: \n";
