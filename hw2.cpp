@@ -5,12 +5,15 @@
 *******************************************************************************/
 
 #include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
 using namespace std;
+
 
 int main(){
     
-    int n = 0;
-    double* grade = new double[n];
+    vector<double> grade;
     double userIn = 0;
     string letter;
     char belowAve;
@@ -21,11 +24,11 @@ int main(){
     while (userIn >= 0) {
         cin >> userIn;
         if (userIn >= 0 && userIn <= 100) {
-            grade[n] = userIn;
-            sum = sum + userIn;
-            n++;
+            grade.push_back(userIn);
         }
     }
+    
+    sum = accumulate(grade.begin(),grade.end(), 0.00);
     
     cout << "\n";
     
@@ -33,11 +36,13 @@ int main(){
     
     cout << "\n";
     
-    cout << "Average: " << sum/n << "\n";
+    cout << "Average: " << sum/grade.size() << "\n";
     
     cout << "\n";
     
-    for (int i = 0; i < n; i++){
+    sort(grade.begin(),grade.end());
+    
+    for (int i = 0; i < grade.size(); i++){
         
         if (grade[i] >= 0 && grade[i] <= 100) {
             
@@ -54,7 +59,7 @@ int main(){
             }
             
             
-            if (grade[i] < (sum/n)){
+            if (grade[i] < (sum/grade.size())){
                 belowAve = '*';
             } else {
                 belowAve = '\0';
@@ -65,6 +70,7 @@ int main(){
         }
         
     }
+    
     
     return 0;
 }
