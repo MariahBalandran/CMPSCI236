@@ -8,14 +8,33 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <vector>
+#include <numeric>
 
 using namespace std;
 
 void fillOutput(ofstream&);
-void gradeReport();
+void gradeReport(ifstream&);
+void printReport1();
+void printReport2();
+void printReport3();
+int id, units, total, count;
+string name, course, line;
+double average, grade, n;
+char letter;
+vector<string> courses1;
+vector<double> units1;
+vector<double> grades1;
+vector<string> courses2;
+vector<double> units2;
+vector<double> grades2;
+vector<string> courses3;
+vector<double> units3;
+vector<double> grades3;
 
 int main() {
     
+    ifstream inFile;
     ofstream outFile;
     
     outFile.open("grade.dat");
@@ -27,9 +46,19 @@ int main() {
     
     fillOutput(outFile);
     
-    gradeReport();
-
     outFile.close();
+    
+    inFile.open("grade.dat");
+    
+    if (inFile.fail()) {
+        cout << "The file does not exist" << endl;
+        exit(1);
+    }
+    
+    gradeReport(inFile);
+
+    inFile.close();
+    
     
     return 0;
     
@@ -38,154 +67,326 @@ int main() {
 void fillOutput(ofstream& filename){
     
     for (int i = 0; i < 3; i++){
-        filename << "2333021" << "\n";
-        filename << "BOKOW, R." << "\n";
+        filename << "2333021" << " ";
+        filename << "BOKOW,R." << " ";
         
-        if (i == 0){
-            filename << "NS201" << "\n";
-            filename << "3" << "\n";
-            filename << "A" << "\n";
-            filename << "\n";
-        } else if (i == 1) {
-            filename << "MG342" << "\n";
-            filename << "3" << "\n";
-            filename << "A" << "\n";
-            filename << "\n";
-        } else {
-            filename << "FA302" << "\n";
-            filename << "1" << "\n";
-            filename << "A" << "\n";
-            filename << "\n";
+        switch (i) {
+        case 0:
+            course = "NS201";
+            units = 3;
+            letter = 'A';
+            break;
+        case 1:
+            course = "MG342";
+            units = 3;
+            letter = 'A';
+            break;
+        case 2:
+            course = "FA302";
+            units = 1;
+            letter = 'A';
+            break;
         }
+        
+        switch (letter) {
+        case 'A':
+            grade = 4;
+            break;
+        case 'B':
+            grade = 3;
+            break;
+        case 'C':
+            grade = 2;
+            break;
+        case 'D':
+            grade = 1;
+            break;
+        case 'F':
+            grade = 0;
+            break;
+        }
+        
+        filename << course << " ";
+        filename << units << " ";
+        filename << letter;
+        filename << "\n";
+        
+        courses1.push_back(course);
+        units1.push_back(units);
+        grades1.push_back(grade);
     }
     
     for (int i = 0; i < 4; i++){
-        filename << "2574063" << "\n";
-        filename << "FALLIN, D." << "\n";
+        filename << "2574063" << " ";
+        filename << "FALLIN,D." << " ";
         
-        if (i == 0){
-            filename << "MK106" << "\n";
-            filename << "3" << "\n";
-            filename << "C" << "\n";
-            filename << "\n";
-        } else if (i == 1) {
-            filename << "MA208" << "\n";
-            filename << "3" << "\n";
-            filename << "B" << "\n";
-            filename << "\n";
-        } else if (i == 2) {
-            filename << "CM201" << "\n";
-            filename << "3" << "\n";
-            filename << "C" << "\n";
-            filename << "\n";
-        } else {
-            filename << "CP101" << "\n";
-            filename << "2" << "\n";
-            filename << "B" << "\n";
-            filename << "\n";
+        switch (i) {
+        case 0:
+            course = "MK106";
+            units = 3;
+            letter ='C';
+            break;
+        case 1:
+            course = "MA208";
+            units = 3;
+            letter = 'B';
+            break;
+        case 2:
+            course = "CM201";
+            units = 3;
+            letter = 'C';
+            break;
+        case 3:
+            course = "CP101";
+            units = 2;
+            letter = 'B';
+            break;
         }
+        
+        switch (letter) {
+        case 'A':
+            grade = 4;
+            break;
+        case 'B':
+            grade = 3;
+            break;
+        case 'C':
+            grade = 2;
+            break;
+        case 'D':
+            grade = 1;
+            break;
+        case 'F':
+            grade = 0;
+            break;
+        }
+        
+        filename << course << " ";
+        filename << units << " ";
+        filename << letter;
+        filename << "\n";
+        
+        courses2.push_back(course);
+        units2.push_back(units);
+        grades2.push_back(grade);
     }
     
     for (int i = 0; i < 5; i++){
-        filename << "2663628" << "\n";
-        filename << "KINGSLEY, M." << "\n";
+        filename << "2663628" << " ";
+        filename << "KINGSLEY,M." << " ";
         
-        if (i == 0){
-            filename << "QA140" << "\n";
-            filename << "3" << "\n";
-            filename << "A" << "\n";
-            filename << "\n";
-        } else if (i == 1) {
-            filename << "CM245" << "\n";
-            filename << "3" << "\n";
-            filename << "B" << "\n";
-            filename << "\n";
-        } else if (i == 2) {
-            filename << "EQ521" << "\n";
-            filename << "3" << "\n";
-            filename << "A" << "\n";
-            filename << "\n";
-        } else if (i == 3) {
-            filename << "MK341" << "\n";
-            filename << "3" << "\n";
-            filename << "A" << "\n";
-            filename << "\n";
-        } else {
-            filename << "CP101" << "\n";
-            filename << "2" << "\n";
-            filename << "B" << "\n";
-            filename << "\n";
+        switch (i) {
+        case 0:
+            course = "QA140";
+            units = 3;
+            letter ='A';
+            break;
+        case 1:
+            course = "CM245";
+            units = 3;
+            letter = 'B';
+            break;
+        case 2:
+            course = "EQ521";
+            units = 3;
+            letter = 'A';
+            break;
+        case 3:
+            course = "MK341";
+            units = 3;
+            letter = 'A';
+            break;
+        case 4:
+            course = "CP101";
+            units = 2;
+            letter = 'B';
+            break;
         }
+        
+        
+        switch (letter) {
+        case 'A':
+            grade = 4;
+            break;
+        case 'B':
+            grade = 3;
+            break;
+        case 'C':
+            grade = 2;
+            break;
+        case 'D':
+            grade = 1;
+            break;
+        case 'F':
+            grade = 0;
+            break;
+        }
+        
+        filename << course << " ";
+        filename << units << " ";
+        filename << letter;
+        filename << "\n";
+        
+        courses3.push_back(course);
+        units3.push_back(units);
+        grades3.push_back(grade);
     }
     
 }
 
-void gradeReport() {
+void gradeReport(ifstream& filename) {
     
-    cout << "Student Name: BOKOW, R." << "\n";
-    cout << "Student ID Number: 2333021" << "\n";
+    if (filename.is_open()) {
+        
+        while (filename >> id >> name >> course >> units >> letter) {
+        
+            if (id == 2333021) {
+                n = 3;
+                total = accumulate(units1.begin(),units1.end(), 0);
+                average = (accumulate(grades1.begin(),grades1.end(), 0.00))/n;
+                
+                if(count == 0){
+                    printReport1();
+                }
+            }
+            
+            if (id == 2574063) {
+                n = 4;
+                total = accumulate(units2.begin(),units2.end(), 0);
+                average = (accumulate(grades2.begin(),grades2.end(), 0.00))/n;
+                
+                if(count == 4){
+                    printReport2();
+                }
+            }
+            
+            if (id == 2663628) {
+                n = 5;
+                total = accumulate(units3.begin(),units3.end(), 0);
+                average = (accumulate(grades3.begin(),grades3.end(), 0.00))/n;
+                
+                if(count == 8){
+                    printReport3();
+                }
+                
+            }
+            
+            count++;
+        
+    }
+        
+    }
+    
+}
+
+void printReport1(){
+    
+    cout << "Student Name: " << name << "\n";
+    cout << "Student ID Number: " << id << "\n";
     
     cout << "\n";
     
     cout << "Course Code       Course Credits   Course Grade" << "\n";
     cout << "_______________________________________________" << "\n";
     
-    cout << "NS201                   3                A     " << "\n";
-    cout << "MG342                   3                A     " << "\n";
-    cout << "FA302                   1                A     " << "\n";
+    for (int i = 0 ; i < n; i++){
+        
+        if (grades1[i] < 1) {
+            letter = 'F';
+        } else if (grades1[i] < 2) {
+            letter = 'D';
+        } else if (grades1[i] < 3) {
+            letter = 'C';
+        } else if (grades1[i] < 4) {
+            letter = 'B';
+        } else {
+            letter = 'A';
+        }
+        
+        cout << courses1[i] << "                        " << units1[i] << "                " << letter <<"     " << "\n";
+    }
     
     cout << "\n";
     
-    cout << "Total Semester Course Credits Completed: 7" << "\n";
-    cout << "Semester GPA: 4.0" << "\n";
-    
-    cout << "\n";
-    cout << "\n";
-    cout << "\n";
-    
-    cout << "Student Name: FALLIN, D." << "\n";
-    cout << "Student ID Number: 2574063" << "\n";
-    
-    cout << "\n";
-    
-    cout << "Course Code       Course Credits   Course Grade" << "\n";
-    cout << "_______________________________________________" << "\n";
-    
-    cout << "MK106                   3                C     " << "\n";
-    cout << "MA208                   3                B     " << "\n";
-    cout << "CM201                   3                C     " << "\n";
-    cout << "CP101                   2                B     " << "\n";
-    
-    cout << "\n";
-    
-    cout << "Total Semester Course Credits Completed: 11" << "\n";
-    cout << "Semester GPA: 2.5" << "\n";
+    cout << "Total Semester Course Credits Completed: " << total << "\n";
+    cout << "Semester GPA: " << average << "\n";
     
     cout << "\n";
     cout << "\n";
     cout << "\n";
+}
+
+void printReport2(){
     
-    cout << "Student Name: KINGSLEY, M." << "\n";
-    cout << "Student ID Number: 2663628" << "\n";
+    cout << "Student Name: " << name << "\n";
+    cout << "Student ID Number: " << id << "\n";
     
     cout << "\n";
     
     cout << "Course Code       Course Credits   Course Grade" << "\n";
     cout << "_______________________________________________" << "\n";
     
-    cout << "QA140                   3                A     " << "\n";
-    cout << "CM245                   3                B     " << "\n";
-    cout << "EQ521                   3                A     " << "\n";
-    cout << "MK341                   3                A     " << "\n";
-    cout << "CP101                   2                B     " << "\n";
+    for (int i = 0 ; i < n; i++){
+        
+        if (grades2[i] < 1) {
+            letter = 'F';
+        } else if (grades2[i] < 2) {
+            letter = 'D';
+        } else if (grades2[i] < 3) {
+            letter = 'C';
+        } else if (grades2[i] < 4) {
+            letter = 'B';
+        } else {
+            letter = 'A';
+        }
+        
+        cout << courses2[i] << "                        " << units2[i] << "                " << letter <<"     " << "\n";
+    }
     
     cout << "\n";
     
-    cout << "Total Semester Course Credits Completed: 14" << "\n";
-    cout << "Semester GPA: 3.6" << "\n";
+    cout << "Total Semester Course Credits Completed: " << total << "\n";
+    cout << "Semester GPA: " << average << "\n";
     
     cout << "\n";
     cout << "\n";
     cout << "\n";
+}
+
+void printReport3(){
     
+    cout << "Student Name: " << name << "\n";
+    cout << "Student ID Number: " << id << "\n";
+    
+    cout << "\n";
+    
+    cout << "Course Code       Course Credits   Course Grade" << "\n";
+    cout << "_______________________________________________" << "\n";
+    
+    for (int i = 0 ; i < n; i++){
+        
+        if (grades3[i] < 1 && grades3[i] >= 0) {
+            letter = 'F';
+        } else if (grades3[i] < 2) {
+            letter = 'D';
+        } else if (grades3[i] < 3) {
+            letter = 'C';
+        } else if (grades3[i] < 4) {
+            letter = 'B';
+        } else {
+            letter = 'A';
+        }
+            
+        
+        cout << courses3[i] << "                        " << units3[i] << "                " << letter <<"     " << "\n";
+    }
+    
+    cout << "\n";
+    
+    cout << "Total Semester Course Credits Completed: " << total << "\n";
+    cout << "Semester GPA: " << average << "\n";
+    
+    cout << "\n";
+    cout << "\n";
+    cout << "\n";
 }
